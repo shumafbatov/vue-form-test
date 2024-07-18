@@ -97,7 +97,7 @@ const onChange = ({ fieldName, value })=>{
  const onSave = async () => {
   try {
     isLoading.value = true
-    let response = await fetch('http://localhost:3000/form', {
+    let response = await fetch(`${import.meta.env.VITE_SERVER}form`, {
 
       signal: getControllerSignal(),
       method: 'POST',

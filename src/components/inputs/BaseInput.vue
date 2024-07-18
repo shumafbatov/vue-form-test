@@ -22,7 +22,7 @@
 </template>
 <script lang="ts" setup>
 
-import {formatNumber} from "@/utils";
+import { formatNumber } from "@/utils";
 
 interface Props {
   value: string | number | null
@@ -36,7 +36,7 @@ interface Props {
 }
 
 const prop = withDefaults(defineProps<Props>(),{
-  errors: []
+  errors: () => []
 })
 
 const emit = defineEmits<{
