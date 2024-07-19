@@ -23,15 +23,22 @@
       <div class="form__actions">
         <button class="submit" type="submit" @click="onSubmit"> submit</button>
       </div>
+      <div class="form__info">
+        <div
+            v-if="!isLoading && userList.length"
+            v-for="(item,i) in userList"
+            :key="i"
+        >
+          <span> {{ item.email }} - {{ item.number }}</span>
+        </div>
+        <div class="skeleton" v-else-if="isLoading">
+          <div class="skeleton__item is-first" />
+          <div class="skeleton__item" />
+          <div class="skeleton__item is-last" />
+        </div>
+      </div>
     </form>
-    <div>
-      <p
-          v-for="(item,i) in userList"
-          :key="i"
-      >
-        <span> {{ item.email }} - {{ item.number }}</span>
-      </p>
-    </div>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -135,11 +142,18 @@ const onChange = ({ fieldName, value })=>{
   justify-content: flex-start;
   align-items: center;
   padding: 15px 5px;
+  & form {
+    min-width: 100px;
+  }
   &__fields {
     margin: 50px 0;
   }
   &__actions {
     max-width: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__info {
     width: 100%;
   }
 }
@@ -152,4 +166,33 @@ const onChange = ({ fieldName, value })=>{
   cursor: pointer;
   width: 100%;
 }
+.skeleton {
+  width: 100%;
+  &__item {
+    height: 16px;
+    min-width: 20px;
+    width: inherit;
+    border-radius: 5px;
+    background: linear-gradient(90deg,#f0f2f2 30%,#cccccc 40%,#f0f0f0 70%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.5s ease infinite;
+    margin-bottom: 5px;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.is-first {
+  width: 60%;
+}
+.is-last {
+  width: 80%;
+}
+
 </style>
